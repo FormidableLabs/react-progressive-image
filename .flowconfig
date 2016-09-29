@@ -1,0 +1,9 @@
+[libs]
+
+[ignore]
+.*/node_modules/fbjs.*
+
+[include]
+index.js
+
+[options]
