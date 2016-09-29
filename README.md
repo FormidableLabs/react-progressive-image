@@ -29,7 +29,7 @@ If you use the UMD build you can find the library on `window.ReactProgressiveIma
 `ProgressiveImage` excepts a render callback as a child, which will be called with the `placeholder` first, and then `src` once the image has been loaded.
 
 ```js
-<ProgressiveImage src='large-image.jpg' placeholder='tiny.jpg'>
-  {(src) => <image src={src} />}
+<ProgressiveImage src='large-image.jpg' placeholder='tiny-image.jpg'>
+  {(src) => <img src={src} alt='an image'/>}
 </ProgressiveImage>
 ```
