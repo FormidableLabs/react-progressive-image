@@ -8,8 +8,9 @@
     "umd": "webpack --config webpack.config.umd.js",
     "lint": "eslint index.js",
     "flow": "flow",
-    "test": "jest",
-    "prepublish": "",
+    "test:only": "jest",
+    "test": "npm run lint && npm run flow && npm run test:only",
+    "prepublish": "npm run test && npm run build && npm run umd",
     "demo": "webpack-dev-server --inline --hot --config demo/webpack.config.js --content-base demo/"
   },
   "keywords": [
