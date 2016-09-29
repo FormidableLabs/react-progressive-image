@@ -54,10 +54,10 @@ export default class ProgressiveImage extends React.Component {
       this.image.onerror = null;
     }
     const image = new Image();
+    this.image = image;
     image.onload = this.onLoad;
     image.onerror = this.onError;
     image.src = src;
-    this.image = image;
   }
 
   onLoad = () => {
@@ -82,8 +82,7 @@ export default class ProgressiveImage extends React.Component {
     const { children } = this.props;
     if (!children || typeof children !== 'function') {
       throw new Error(
-        `ProgressiveImage requires a function as its only child, ` +
-        `received ${children} instead.`
+        `ProgressiveImage requires a function as its only child`
       );
     }
     return children(image);
