@@ -2,3 +2,4 @@ node_modules
 npm-debug.log
 dist.js
 umd
+.DS_Store
