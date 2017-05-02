@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "Progressive image loading for React",
   "main": "dist.js",
+  "typings": "index.d.ts",
   "scripts": {
     "build": "babel index.js --out-file dist.js",
     "umd": "webpack --config webpack.config.umd.js",
