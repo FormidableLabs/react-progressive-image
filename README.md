@@ -26,7 +26,7 @@ If you use the UMD build you can find the library on `window.ReactProgressiveIma
 
 `src` should be the final image you want to load, and `placeholder` is the image you want to display until `src` is loaded. `placeholder` can be anything you want. A typical use case might involve using a smaller version of the image, an inlined version (data URI), or a loading graphic.
 
-`ProgressiveImage` excepts a render callback as a child, which will be called with the `placeholder` first, and then `src` once the image has been loaded.
+`ProgressiveImage` accepts a render callback as a child, which will be called with the `placeholder` first, and then `src` once the image has been loaded.
 
 ```js
 <ProgressiveImage src='large-image.jpg' placeholder='tiny-image.jpg'>
