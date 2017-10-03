@@ -20,7 +20,7 @@
     "images",
     "loading"
   ],
-  "repo": "https://github.com/FormidableLabs/react-progressive-image.git",
+  "repository": "https://github.com/FormidableLabs/react-progressive-image.git",
   "author": "Brandon Dail <brandon.dail@formidable.com>",
   "license": "MIT",
   "devDependencies": {
