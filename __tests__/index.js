@@ -69,4 +69,13 @@ describe('react-progressive-image', () => {
     expect(render.mock.calls[1][0]).toEqual(src);
   });
 
+  it('should pass the loading state', () => {
+    const render = jest.fn(() => <h1>Hello, world</h1>);
+    mountProgressiveImage(render);
+    expect(render.mock.calls[0][0]).toEqual(placeholder);
+    expect(render.mock.calls[0][1]).toEqual(true);
+    expect(render.mock.calls[1][0]).toEqual(src);
+    expect(render.mock.calls[1][1]).toEqual(false);
+  });
+
 });

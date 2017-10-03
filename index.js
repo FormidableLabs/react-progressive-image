@@ -10,6 +10,7 @@ type ProgressiveImageProps = {
 
 type ProgressiveImageState = {
   image: string,
+  loading: boolean,
 };
 
 export default class ProgressiveImage extends React.Component {
@@ -19,7 +20,8 @@ export default class ProgressiveImage extends React.Component {
   constructor(props: ProgressiveImageProps) {
     super(props);
     this.state = {
-      image: props.placeholder
+      image: props.placeholder,
+      loading: true
     };
   }
 
@@ -32,7 +34,7 @@ export default class ProgressiveImage extends React.Component {
     const { src, placeholder } = nextProps;
     // We only invalidate the current image if the src has changed.
     if (src !== this.props.src) {
-      this.setState({ image: placeholder }, () => {
+      this.setState({ image: placeholder, loading: true }, () => {
         this.loadImage(src);
       });
     }
@@ -66,7 +68,8 @@ export default class ProgressiveImage extends React.Component {
     // new image loading before the new props are available as
     // this.props.
     this.setState({
-      image: this.image.src
+      image: this.image.src,
+      loading: false
     });
   }
 
@@ -78,13 +81,13 @@ export default class ProgressiveImage extends React.Component {
   }
 
   render() {
-    const { image } = this.state;
+    const { image, loading } = this.state;
     const { children } = this.props;
     if (!children || typeof children !== 'function') {
       throw new Error(
         `ProgressiveImage requires a function as its only child`
       );
     }
-    return children(image);
+    return children(image, loading);
   }
 }
