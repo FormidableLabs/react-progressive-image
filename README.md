@@ -28,8 +28,18 @@ If you use the UMD build you can find the library on `window.ReactProgressiveIma
 
 `ProgressiveImage` accepts a render callback as a child, which will be called with the `placeholder` first, and then `src` once the image has been loaded.
 
-```js
+```jsx
 <ProgressiveImage src='large-image.jpg' placeholder='tiny-image.jpg'>
   {(src) => <img src={src} alt='an image'/>}
+</ProgressiveImage>
+```
+
+It will also call the render callback with a second argument, `loading`, which you can use to quickly determine what image is being rendered. `loading` will be `true` when the placeholder is rendered, and `false` when the full image is rendered.
+
+```jsx
+<ProgressiveImage src='large-image.jpg' placeholder='tiny-image.jpg'>
+  {(src, loading) => (
+    <img style={{ opacity: loading ? 0.5 : 1 }} src={src} alt='an image'/>
+  )}
 </ProgressiveImage>
 ```
