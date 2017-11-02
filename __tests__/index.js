@@ -1,12 +1,16 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { configure, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
+
 import ProgressiveImage from '../index';
 
 const src = 'SOURCE';
 const placeholder = 'PLACEHOLDER';
 
-const mountProgressiveImage = (renderFn) => {
-  const defaultRender = (image) => {
+const mountProgressiveImage = renderFn => {
+  const defaultRender = image => {
     return <img src={image} />;
   };
   const render = renderFn || defaultRender;
@@ -17,9 +21,7 @@ const mountProgressiveImage = (renderFn) => {
   );
 };
 
-
 describe('react-progressive-image', () => {
-
   beforeEach(() => {
     global.Image = Image;
   });
@@ -77,5 +79,4 @@ describe('react-progressive-image', () => {
     expect(render.mock.calls[1][0]).toEqual(src);
     expect(render.mock.calls[1][1]).toEqual(false);
   });
-
 });
