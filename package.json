@@ -44,6 +44,7 @@
     "eslint-plugin-react": "^6.10.3",
     "flow-bin": "^0.32.0",
     "jest": "^20.0.3",
+    "raf": "^3.4.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
