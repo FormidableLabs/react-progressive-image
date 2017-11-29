@@ -32,6 +32,9 @@ describe('react-progressive-image', () => {
   });
 
   it('throws if not provided a function as a child', () => {
+    /* eslint-disable no-console */
+    const _error = console.error;
+    console.error = jest.fn(() => {});
     expect(() => {
       mount(
         <ProgressiveImage>
@@ -39,6 +42,8 @@ describe('react-progressive-image', () => {
         </ProgressiveImage>
       );
     }).toThrow(`ProgressiveImage requires a function as its only child`);
+    console.error = _error;
+    /* eslint-enable no-console */
   });
 
   it('creates an instance of Image when mounted', () => {
