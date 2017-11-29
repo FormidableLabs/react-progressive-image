@@ -1,16 +1,16 @@
 // @flow
-import React from 'react';
+import React from "react";
 
 type ProgressiveImageProps = {
   children: (image: string) => React$Element<any>,
   onError?: (errorEvent: Event) => void,
   placeholder: string,
-  src: string,
+  src: string
 };
 
 type ProgressiveImageState = {
   image: string,
-  loading: boolean,
+  loading: boolean
 };
 
 export default class ProgressiveImage extends React.Component {
@@ -60,7 +60,7 @@ export default class ProgressiveImage extends React.Component {
     image.onload = this.onLoad;
     image.onerror = this.onError;
     image.src = src;
-  }
+  };
 
   onLoad = () => {
     // use this.image.src instead of this.props.src to
@@ -71,22 +71,20 @@ export default class ProgressiveImage extends React.Component {
       image: this.image.src,
       loading: false
     });
-  }
+  };
 
   onError = (errorEvent: Event) => {
     const { onError } = this.props;
     if (onError) {
       onError(errorEvent);
     }
-  }
+  };
 
   render() {
     const { image, loading } = this.state;
     const { children } = this.props;
-    if (!children || typeof children !== 'function') {
-      throw new Error(
-        `ProgressiveImage requires a function as its only child`
-      );
+    if (!children || typeof children !== "function") {
+      throw new Error(`ProgressiveImage requires a function as its only child`);
     }
     return children(image, loading);
   }
