@@ -34,14 +34,17 @@ describe("react-progressive-image", () => {
     /* eslint-disable no-console */
     const _error = console.error;
     console.error = jest.fn(() => {});
-    expect(() => {
-      mount(
-        <ProgressiveImage>
-          <h1>Uh oh!</h1>
-        </ProgressiveImage>
-      );
-    }).toThrow(`ProgressiveImage requires a function as its only child`);
-    console.error = _error;
+    try {
+      expect(() => {
+        mount(
+          <ProgressiveImage>
+            <h1>Uh oh!</h1>
+          </ProgressiveImage>
+        );
+      }).toThrow(`ProgressiveImage requires a function as its only child`);
+    } finally {
+      console.error = _error;
+    }
     /* eslint-enable no-console */
   });
 
