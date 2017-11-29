@@ -1,23 +1,21 @@
 // @flow
-import React from "react";
+import * as React from "react";
 
-type ProgressiveImageProps = {
-  children: (image: string) => React$Element<any>,
+type Props = {
+  children: (string, boolean) => React.Node,
   onError?: (errorEvent: Event) => void,
   placeholder: string,
   src: string
 };
 
-type ProgressiveImageState = {
+type State = {
   image: string,
   loading: boolean
 };
 
-export default class ProgressiveImage extends React.Component {
-  props: ProgressiveImageProps;
-  state: ProgressiveImageState;
+export default class ProgressiveImage extends React.Component<Props, State> {
   image: HTMLImageElement;
-  constructor(props: ProgressiveImageProps) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       image: props.placeholder,
@@ -30,7 +28,7 @@ export default class ProgressiveImage extends React.Component {
     this.loadImage(src);
   }
 
-  componentWillReceiveProps(nextProps: ProgressiveImageProps) {
+  componentWillReceiveProps(nextProps: Props) {
     const { src, placeholder } = nextProps;
     // We only invalidate the current image if the src has changed.
     if (src !== this.props.src) {
