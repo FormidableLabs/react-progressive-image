@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "8"
+  - "6"
+  - "4"
+dist: trusty # needs Ubuntu Trusty
+sudo: false  # no need for virtualization.
+script:
+  - yarn test
