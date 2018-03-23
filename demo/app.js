@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ProgressiveImage from '../index.js';
+import ProgressiveImage from '../src/index.js';
 import inline from './inline';
 const src = 'http://i.imgur.com/XhGsjTN.jpg';
 
