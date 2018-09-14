@@ -28,10 +28,10 @@ export default class ProgressiveImage extends React.Component<Props, State> {
     this.loadImage(src);
   }
 
-  componentWillReceiveProps(nextProps: Props) {
-    const { src, placeholder } = nextProps;
+  componentDidUpdate(prevProps: Props) {
+    const { src, placeholder } = this.props;
     // We only invalidate the current image if the src has changed.
-    if (src !== this.props.src) {
+    if (src !== prevProps.src) {
       this.setState({ image: placeholder, loading: true }, () => {
         this.loadImage(src);
       });
