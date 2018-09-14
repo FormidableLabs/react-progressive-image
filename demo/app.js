@@ -10,21 +10,11 @@ const imageStyle = {
 };
 
 class App extends React.Component {
-  state = {
-    image: src
-  };
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ image: "https://www.fillmurray.com/2000/2000" });
-    }, 3000);
-  }
-
   render() {
     return (
       <div>
         <h1>Progressive!</h1>
-        <ProgressiveImage src={this.state.image} placeholder={inline}>
+        <ProgressiveImage src={src} placeholder={inline}>
           {image => <img style={imageStyle} src={image} />}
         </ProgressiveImage>
       </div>
