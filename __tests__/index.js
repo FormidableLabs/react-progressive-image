@@ -77,14 +77,13 @@ describe("react-progressive-image", () => {
     const wrapper = mountProgressiveImage(render);
     expect(render.mock.calls[0][0]).toEqual(placeholder);
   });
-  
   it("renders src image on second render", () => {
     const render = jest.fn(src => <img src={src} alt="an image" />);
     const wrapper = mountProgressiveImage(render);
     wrapper.instance().loadImage(src);
     wrapper.instance().onLoad();
     expect(render.mock.calls[1][0]).toEqual(src);
-  })
+  });
 
   it("sets loading to false after src image is loaded", () => {
     const render = jest.fn(src => <img src={src} alt="an image" />);

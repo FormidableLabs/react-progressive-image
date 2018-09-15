@@ -1,6 +1,7 @@
 /* globals __dirname */
 const webpack = require('webpack');
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   mode: 'produciton',
@@ -34,13 +35,15 @@ module.exports = {
       loader: 'babel-loader'
     }]
   },
-  plugins: [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
         warnings: false
-      }
-    }),
+      })
+    ]   
+  },
+  plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
