@@ -82,9 +82,11 @@ export default class ProgressiveImage extends React.Component<Props, State> {
   render() {
     const { image, loading } = this.state;
     const { children } = this.props;
+
     if (!children || typeof children !== "function") {
       throw new Error(`ProgressiveImage requires a function as its only child`);
     }
+
     return children(image, loading);
   }
 }

@@ -6,8 +6,8 @@ import ProgressiveImage from "../src";
 
 configure({ adapter: new Adapter() });
 
-const src = "SOURCE";
-const placeholder = "PLACEHOLDER";
+const src = "https://image.xyz/source";
+const placeholder = "https://image.xyz/placeholder";
 
 const mountProgressiveImage = renderFn => {
   const defaultRender = image => {
@@ -72,19 +72,26 @@ describe("react-progressive-image", () => {
     expect(instance.image.src).toEqual(src);
   });
 
-  it("should call the render callback with placeholder the src", () => {
-    const render = jest.fn(() => <h1>Hello, world</h1>);
-    mountProgressiveImage(render);
+  it("renders placeholder image on initial render", () => {
+    const render = jest.fn(src => <img src={src} alt="an image" />);
+    const wrapper = mountProgressiveImage(render);
     expect(render.mock.calls[0][0]).toEqual(placeholder);
-    expect(render.mock.calls[1][0]).toEqual(src);
   });
-
-  it("should pass the loading state", () => {
-    const render = jest.fn(() => <h1>Hello, world</h1>);
-    mountProgressiveImage(render);
-    expect(render.mock.calls[0][0]).toEqual(placeholder);
-    expect(render.mock.calls[0][1]).toEqual(true);
+  
+  it("renders src image on second render", () => {
+    const render = jest.fn(src => <img src={src} alt="an image" />);
+    const wrapper = mountProgressiveImage(render);
+    wrapper.instance().loadImage(src);
+    wrapper.instance().onLoad();
     expect(render.mock.calls[1][0]).toEqual(src);
+  })
+
+  it("sets loading to false after src image is loaded", () => {
+    const render = jest.fn(src => <img src={src} alt="an image" />);
+    const wrapper = mountProgressiveImage(render);
+    expect(render.mock.calls[0][1]).toEqual(true);
+    wrapper.instance().loadImage(src);
+    wrapper.instance().onLoad();
     expect(render.mock.calls[1][1]).toEqual(false);
   });
 });
