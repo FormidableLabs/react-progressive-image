@@ -4,7 +4,7 @@ const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  mode: 'produciton',
+  mode: 'production',
   entry: path.join(__dirname, 'src/index.js'),
   externals: [
     {
@@ -40,13 +40,15 @@ module.exports = {
       new UglifyJsPlugin({
         uglifyOptions: {
         warnings: false
-      })
+      }})
     ]   
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new webpack.SourceMapDevToolPlugin('[file].map')
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[file].map'
+    })
   ]
 };
