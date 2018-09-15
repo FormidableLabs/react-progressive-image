@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
+  mode: 'produciton',
   entry: path.join(__dirname, 'src/index.js'),
   externals: [
     {
@@ -27,10 +28,10 @@ module.exports = {
     path: path.join(__dirname, 'umd')
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: 'babel'
+      loader: 'babel-loader'
     }]
   },
   plugins: [
