@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from "react";
 
 type Props = {
@@ -28,10 +29,10 @@ export default class ProgressiveImage extends React.Component<Props, State> {
     this.loadImage(src);
   }
 
-  componentWillReceiveProps(nextProps: Props) {
-    const { src, placeholder } = nextProps;
+  componentDidUpdate(prevProps: Props) {
+    const { src, placeholder } = this.props;
     // We only invalidate the current image if the src has changed.
-    if (src !== this.props.src) {
+    if (src !== prevProps.src) {
       this.setState({ image: placeholder, loading: true }, () => {
         this.loadImage(src);
       });
@@ -81,9 +82,11 @@ export default class ProgressiveImage extends React.Component<Props, State> {
   render() {
     const { image, loading } = this.state;
     const { children } = this.props;
+
     if (!children || typeof children !== "function") {
       throw new Error(`ProgressiveImage requires a function as its only child`);
     }
+
     return children(image, loading);
   }
 }

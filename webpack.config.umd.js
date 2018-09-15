@@ -1,8 +1,10 @@
 /* globals __dirname */
 const webpack = require('webpack');
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
+  mode: 'production',
   entry: path.join(__dirname, 'src/index.js'),
   externals: [
     {
@@ -27,22 +29,26 @@ module.exports = {
     path: path.join(__dirname, 'umd')
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: 'babel'
+      loader: 'babel-loader'
     }]
   },
-  plugins: [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
         warnings: false
-      }
-    }),
+      }})
+    ]   
+  },
+  plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new webpack.SourceMapDevToolPlugin('[file].map')
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[file].map'
+    })
   ]
 };
