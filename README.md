@@ -30,7 +30,7 @@ If you use the UMD build you can find the library on `window.ReactProgressiveIma
 
 ```jsx
 <ProgressiveImage src='large-image.jpg' placeholder='tiny-image.jpg'>
-  {(src) => <img src={src} alt='an image'/>}
+  {src => <img src={src} alt='an image'/>}
 </ProgressiveImage>
 ```
 
@@ -41,5 +41,22 @@ It will also call the render callback with a second argument, `loading`, which y
   {(src, loading) => (
     <img style={{ opacity: loading ? 0.5 : 1 }} src={src} alt='an image'/>
   )}
+</ProgressiveImage>
+```
+
+If you need to support environments in which JavaScript is disabled, like in a server-side rendered app, you can add an `<img>` inside of a `<noscript>` tag. The content inside of the `<noscript>` tag will only be rendered when JavaScript is disabled or unsupported.
+
+```jsx
+<ProgressiveImage src='large-image.jpg' placeholder='tiny-image.jpg'>
+  {src => {
+    return (
+      <div>
+        <img style={imageStyle} src={src} />
+        <noscript>
+          <img className="no-js-img" style={imageStyle} src='large-image.jpg' />
+        </noscript>
+      </div>
+    )
+  }} 
 </ProgressiveImage>
 ```

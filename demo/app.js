@@ -15,7 +15,16 @@ class App extends React.Component {
       <div>
         <h1>Progressive!</h1>
         <ProgressiveImage src={src} placeholder={inline}>
-          {image => <img style={imageStyle} src={image} />}
+          {image => {
+            return (
+              <div>
+                <img style={imageStyle} src={image} />
+                <noscript>
+                  <img className="no-js-img" style={imageStyle} src={src} />
+                </noscript>
+              </div>
+            )
+          }} 
         </ProgressiveImage>
       </div>
     );
