@@ -2,16 +2,23 @@
 
 import * as React from "react";
 
+type SrcSetData = {
+  srcSet: string,
+  sizes: string
+};
+
 type Props = {
-  children: (string, boolean) => React.Node,
+  children: (string, boolean, SrcSetData) => React.Node,
   onError?: (errorEvent: Event) => void,
   placeholder: string,
-  src: string
+  src: string,
+  srcSetData?: SrcSetData
 };
 
 type State = {
   image: string,
-  loading: boolean
+  loading: boolean,
+  srcSetData?: SrcSetData
 };
 
 export default class ProgressiveImage extends React.Component<Props, State> {
@@ -20,21 +27,22 @@ export default class ProgressiveImage extends React.Component<Props, State> {
     super(props);
     this.state = {
       image: props.placeholder,
-      loading: true
+      loading: true,
+      srcSetData: { srcSet: '', sizes: '' }
     };
   }
 
   componentDidMount() {
-    const { src } = this.props;
-    this.loadImage(src);
+    const { src, srcSetData } = this.props;
+    this.loadImage(src, srcSetData);
   }
 
   componentDidUpdate(prevProps: Props) {
-    const { src, placeholder } = this.props;
+    const { src, placeholder, srcSetData } = this.props;
     // We only invalidate the current image if the src has changed.
     if (src !== prevProps.src) {
       this.setState({ image: placeholder, loading: true }, () => {
-        this.loadImage(src);
+        this.loadImage(src, srcSetData);
       });
     }
   }
@@ -46,7 +54,7 @@ export default class ProgressiveImage extends React.Component<Props, State> {
     }
   }
 
-  loadImage = (src: string) => {
+  loadImage = (src: string, srcSetData?: SrcSetData) => {
     // If there is already an image we nullify the onload
     // and onerror props so it does not incorrectly set state
     // when it resolves
@@ -59,6 +67,11 @@ export default class ProgressiveImage extends React.Component<Props, State> {
     image.onload = this.onLoad;
     image.onerror = this.onError;
     image.src = src;
+    
+    if (srcSetData) {
+      image.srcset = srcSetData.srcSet;
+      image.sizes = srcSetData.sizes;
+    }
   };
 
   onLoad = () => {
@@ -68,7 +81,11 @@ export default class ProgressiveImage extends React.Component<Props, State> {
     // this.props.
     this.setState({
       image: this.image.src,
-      loading: false
+      loading: false,
+      srcSetData: {
+        srcSet: this.image.srcset,
+        sizes: this.image.sizes
+      }
     });
   };
 
@@ -80,13 +97,13 @@ export default class ProgressiveImage extends React.Component<Props, State> {
   };
 
   render() {
-    const { image, loading } = this.state;
+    const { image, loading, srcSetData } = this.state;
     const { children } = this.props;
 
     if (!children || typeof children !== "function") {
       throw new Error(`ProgressiveImage requires a function as its only child`);
     }
 
-    return children(image, loading);
+    return children(image, loading, srcSetData);
   }
 }
