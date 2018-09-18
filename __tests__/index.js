@@ -9,7 +9,7 @@ configure({ adapter: new Adapter() });
 const src = "https://image.xyz/source";
 const placeholder = "https://image.xyz/placeholder";
 const srcSetData = {
-  srcSet: `srcSet`,
+  srcSet: "srcSet",
   sizes: "sizes"
 };
 
