@@ -18,7 +18,7 @@ type Props = {
 type State = {
   image: string,
   loading: boolean,
-  srcSetData?: SrcSetData
+  srcSetData: SrcSetData
 };
 
 export default class ProgressiveImage extends React.Component<Props, State> {
@@ -28,7 +28,7 @@ export default class ProgressiveImage extends React.Component<Props, State> {
     this.state = {
       image: props.placeholder,
       loading: true,
-      srcSetData: { srcSet: '', sizes: '' }
+      srcSetData: { srcSet: "", sizes: "" }
     };
   }
 
@@ -67,7 +67,6 @@ export default class ProgressiveImage extends React.Component<Props, State> {
     image.onload = this.onLoad;
     image.onerror = this.onError;
     image.src = src;
-    
     if (srcSetData) {
       image.srcset = srcSetData.srcSet;
       image.sizes = srcSetData.sizes;
@@ -83,8 +82,8 @@ export default class ProgressiveImage extends React.Component<Props, State> {
       image: this.image.src,
       loading: false,
       srcSetData: {
-        srcSet: this.image.srcset,
-        sizes: this.image.sizes
+        srcSet: this.image.srcset || "",
+        sizes: this.image.sizes || ""
       }
     });
   };
