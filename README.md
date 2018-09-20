@@ -22,9 +22,11 @@ If you use the UMD build you can find the library on `window.ReactProgressiveIma
 
 ## Usage
 
-`react-progressive-image` exports a single React component, `ProgressiveImage`, which takes a `src` and `placeholder` prop, as well as an optional `onError` function.
+`react-progressive-image` exports a single React component, `ProgressiveImage`, which takes a `src` and `placeholder` prop, as well as optional props `srcSetData`, and `onError` function.
 
 `src` should be the final image you want to load, and `placeholder` is the image you want to display until `src` is loaded. `placeholder` can be anything you want. A typical use case might involve using a smaller version of the image, an inlined version (data URI), or a loading graphic.
+
+If you would like to supply a srcSet for the image, you can use the `srcSetData` prop. The prop should be and object containing two properties, `srcSet`, and `sizes`.
 
 `ProgressiveImage` accepts a render callback as a child, which will be called with the `placeholder` first, and then `src` once the image has been loaded.
 
@@ -40,6 +42,28 @@ It will also call the render callback with a second argument, `loading`, which y
 <ProgressiveImage src='large-image.jpg' placeholder='tiny-image.jpg'>
   {(src, loading) => (
     <img style={{ opacity: loading ? 0.5 : 1 }} src={src} alt='an image'/>
+  )}
+</ProgressiveImage>
+```
+
+If the `srcSetData` prop is supplied, it will be returned as the third argument to the render callback. This is helpful if you are sharing a render function between multiple different `ProgressiveImage` components.
+
+```jsx
+<ProgressiveImage 
+  src='medium.jpg' 
+  srcSetData={{
+    srcSet: 'small.jpg 320w, medium.jpg 700w, large.jpg 2000w',
+    sizes: "(max-width: 2000px) 100vw, 2000px"
+  }}
+  placeholder='tiny-image.jpg'
+>
+  {(src, _loading, srcSetData) => (
+    <img 
+      src={src} 
+      srcSet={srcSetData.srcSet} 
+      sizes={srcSetData.sizes} 
+      alt='an image'
+    />
   )}
 </ProgressiveImage>
 ```
