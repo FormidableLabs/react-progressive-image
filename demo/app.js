@@ -31,13 +31,13 @@ const textContainerStyle = {
   position: 'absolute',
   right: 0,
   top: 0
-}
+};
 
 const textStyle = {
   color: '#fff',
   fontFamily: 'sans-serif',
   fontSize: '2.5em',
-  textTransform: 'uppercase',
+  textTransform: 'uppercase'
 };
 
 class App extends React.Component {
@@ -51,20 +51,20 @@ class App extends React.Component {
             Image
           </h1>
         </div>
-        <ProgressiveImage 
-          src={MD} 
-          placeholder={inline} 
+        <ProgressiveImage
+          src={MD}
+          placeholder={inline}
           srcSetData={{
             srcSet: `${SM} 320w, ${MD} 700w, ${LG} 2000w`,
-            sizes: "(max-width: 2000px) 100vw, 2000px"
+            sizes: '(max-width: 2000px) 100vw, 2000px'
           }}
         >
           {(image, loading, srcSetData) => {
             return (
-              <img 
-                style={imageStyle} 
-                src={image} 
-                srcSet={srcSetData.srcSet} 
+              <img
+                style={imageStyle}
+                src={image}
+                srcSet={srcSetData.srcSet}
                 sizes={srcSetData.sizes}
               />
             );

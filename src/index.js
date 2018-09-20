@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from "react";
+import * as React from 'react';
 
 type SrcSetData = {
   srcSet: string,
@@ -9,6 +9,7 @@ type SrcSetData = {
 
 type Props = {
   children: (string, boolean, SrcSetData) => React.Node,
+  delay?: number,
   onError?: (errorEvent: Event) => void,
   placeholder: string,
   src: string,
@@ -28,7 +29,7 @@ export default class ProgressiveImage extends React.Component<Props, State> {
     this.state = {
       image: props.placeholder,
       loading: true,
-      srcSetData: { srcSet: "", sizes: "" }
+      srcSetData: { srcSet: '', sizes: '' }
     };
   }
 
@@ -78,14 +79,16 @@ export default class ProgressiveImage extends React.Component<Props, State> {
     // avoid the possibility of props being updated and the
     // new image loading before the new props are available as
     // this.props.
-    this.setState({
-      image: this.image.src,
-      loading: false,
-      srcSetData: {
-        srcSet: this.image.srcset || "",
-        sizes: this.image.sizes || ""
-      }
-    });
+    setTimeout(() => {
+      this.setState({
+        image: this.image.src,
+        loading: false,
+        srcSetData: {
+          srcSet: this.image.srcset || '',
+          sizes: this.image.sizes || ''
+        }
+      });
+    }, this.props.delay || 0);
   };
 
   onError = (errorEvent: Event) => {
@@ -99,7 +102,7 @@ export default class ProgressiveImage extends React.Component<Props, State> {
     const { image, loading, srcSetData } = this.state;
     const { children } = this.props;
 
-    if (!children || typeof children !== "function") {
+    if (!children || typeof children !== 'function') {
       throw new Error(`ProgressiveImage requires a function as its only child`);
     }
 
