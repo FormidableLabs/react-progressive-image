@@ -79,16 +79,29 @@ export default class ProgressiveImage extends React.Component<Props, State> {
     // avoid the possibility of props being updated and the
     // new image loading before the new props are available as
     // this.props.
+
+    if (this.props.delay) {
+      this.setImageWithDelay();
+    } else {
+      this.setImage();
+    }
+  };
+
+  setImageWithDelay = () => {
     setTimeout(() => {
-      this.setState({
-        image: this.image.src,
-        loading: false,
-        srcSetData: {
-          srcSet: this.image.srcset || '',
-          sizes: this.image.sizes || ''
-        }
-      });
-    }, this.props.delay || 0);
+      this.setImage();
+    }, this.props.delay);
+  };
+
+  setImage = () => {
+    this.setState({
+      image: this.image.src,
+      loading: false,
+      srcSetData: {
+        srcSet: this.image.srcset || '',
+        sizes: this.image.sizes || ''
+      }
+    });
   };
 
   onError = (errorEvent: Event) => {
