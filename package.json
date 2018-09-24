@@ -1,6 +1,6 @@
 {
   "name": "react-progressive-image",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Progressive image loading for React",
   "main": "dist.js",
   "typings": "src/index.d.ts",
