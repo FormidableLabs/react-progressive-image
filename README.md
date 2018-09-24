@@ -73,6 +73,27 @@ If you use the UMD build you can find the library on `window.ReactProgressiveIma
 </ProgressiveImage>
 ```
 
+#### Progressive Enhancement and No JavaScript
+
+Since this component relies on JavaScript to replace the placeholder src with the full image src, you should use a fallback image if your application supports environments that do not have JavaScript enabled or is progressively enhanced.
+
+You can do this by adding the fallback image inside of a `<noscript>` tag in the render callback you provide as the `ProgressiveImage` component's child.
+
+```jsx
+<ProgressiveImage src="large-image.jpg" placeholder="tiny-image.jpg">
+  {src => {
+    return (
+      <div>
+        <img className="progressive-image" src={src} />
+        <noscript>
+          <img className="progressive-image no-script" src="large-image.jpg" />
+        </noscript>
+      </div>
+    );
+  }}
+</ProgressiveImage>
+```
+
 ### Props
 
 | Name        | Type                                   | Required | Description                                     |
