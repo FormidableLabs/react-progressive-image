@@ -5,12 +5,11 @@
 
 [`react-progressive-image`](https://www.npmjs.com/package/react-progressive-image) React component for progressive image loading
 
-## Installation
+### Install
 
-Using [npm](https://www.npmjs.com/):
-
-    $ npm install --save react-progressive-image
-
+```bash
+$ yarn add react-progressive-image
+```
 
 The UMD build is also available on [unpkg](https://unpkg.com):
 
@@ -20,50 +19,67 @@ The UMD build is also available on [unpkg](https://unpkg.com):
 
 If you use the UMD build you can find the library on `window.ReactProgressiveImage`.
 
-## Usage
+### Examples
 
-`react-progressive-image` exports a single React component, `ProgressiveImage`, which takes a `src` and `placeholder` prop, as well as optional props `srcSetData`, and `onError` function.
-
-`src` should be the final image you want to load, and `placeholder` is the image you want to display until `src` is loaded. `placeholder` can be anything you want. A typical use case might involve using a smaller version of the image, an inlined version (data URI), or a loading graphic.
-
-If you would like to supply a srcSet for the image, you can use the `srcSetData` prop. The prop should be and object containing two properties, `srcSet`, and `sizes`.
-
-`ProgressiveImage` accepts a render callback as a child, which will be called with the `placeholder` first, and then `src` once the image has been loaded.
+#### Simple
 
 ```jsx
-<ProgressiveImage src='large-image.jpg' placeholder='tiny-image.jpg'>
-  {(src) => <img src={src} alt='an image'/>}
+<ProgressiveImage src="large-image.jpg" placeholder="tiny-image.jpg">
+  {src => <img src={src} alt="an image" />}
 </ProgressiveImage>
 ```
 
-It will also call the render callback with a second argument, `loading`, which you can use to quickly determine what image is being rendered. `loading` will be `true` when the placeholder is rendered, and `false` when the full image is rendered.
+#### With Delay
 
 ```jsx
-<ProgressiveImage src='large-image.jpg' placeholder='tiny-image.jpg'>
+<ProgressiveImage
+  delay={3000}
+  src="large-image.jpg"
+  placeholder="tiny-image.jpg"
+>
+  {src => <img src={src} alt="an image" />}
+</ProgressiveImage>
+```
+
+#### With loading argment
+
+```jsx
+<ProgressiveImage src="large-image.jpg" placeholder="tiny-image.jpg">
   {(src, loading) => (
-    <img style={{ opacity: loading ? 0.5 : 1 }} src={src} alt='an image'/>
+    <img style={{ opacity: loading ? 0.5 : 1 }} src={src} alt="an image" />
   )}
 </ProgressiveImage>
 ```
 
-If the `srcSetData` prop is supplied, it will be returned as the third argument to the render callback. This is helpful if you are sharing a render function between multiple different `ProgressiveImage` components.
+#### With srcSet
 
 ```jsx
-<ProgressiveImage 
-  src='medium.jpg' 
+<ProgressiveImage
+  src="medium.jpg"
   srcSetData={{
     srcSet: 'small.jpg 320w, medium.jpg 700w, large.jpg 2000w',
-    sizes: "(max-width: 2000px) 100vw, 2000px"
+    sizes: '(max-width: 2000px) 100vw, 2000px'
   }}
-  placeholder='tiny-image.jpg'
+  placeholder="tiny-image.jpg"
 >
   {(src, _loading, srcSetData) => (
-    <img 
-      src={src} 
-      srcSet={srcSetData.srcSet} 
-      sizes={srcSetData.sizes} 
-      alt='an image'
+    <img
+      src={src}
+      srcSet={srcSetData.srcSet}
+      sizes={srcSetData.sizes}
+      alt="an image"
     />
   )}
 </ProgressiveImage>
 ```
+
+### Props
+
+| Name        | Type                                   | Required | Description                                     |
+| ----------- | -------------------------------------- | -------- | ----------------------------------------------- |
+| children    | `function`                             | `true`   | returns `src`, `loading`, and `srcSetData`      |
+| delay       | `number`                               | `false`  | time in milliseconds before src image is loaded |
+| onError     | `function`                             | `false`  | returns error event                             |
+| placeholder | `string`                               | `true`   | the src of the placeholder image                |
+| src         | `string`                               | `true`   | the src of the main image                       |
+| srcSetData  | `{srcSet: "string", sizes: "string" }` | `false`  | srcset and sizes to be applied to the image     |
