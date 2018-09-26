@@ -73,6 +73,25 @@ If you use the UMD build you can find the library on `window.ReactProgressiveIma
 </ProgressiveImage>
 ```
 
+#### Component As Placeholder
+
+If you want to use a component, such as a loading spinner, as a placeholder, you can make use of the `loading` argument in the render callback. It will be true while the main image is loading and false once it has fully loaded. Keep in mind that the `placeholder` props is `required`, so you will need to explicitly declare an empty string as it's value if you plan on using a component in the render callback.
+
+```jsx
+const dominantImageColor = '#86356B';
+const placeholder = (
+  <div
+    style={{ backgroundColor: dominantImageColor, height: 300, width: 500 }}
+  />
+);
+
+<ProgressiveImage src="large-image.jpg" placeholder="">
+  {(src, loading) => {
+    return loading ? placeholder : <img src={src} alt="an image" />;
+  }}
+</ProgressiveImage>;
+```
+
 #### Progressive Enhancement and No JavaScript
 
 Since this component relies on JavaScript to replace the placeholder src with the full image src, you should use a fallback image if your application supports environments that do not have JavaScript enabled or is progressively enhanced.
