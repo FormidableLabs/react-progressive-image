@@ -16,12 +16,14 @@ const centerAlign = {
 const containerStyle = {
   ...centerAlign,
   overflow: 'hidden',
-  position: 'relative'
+  position: 'relative',
+  maxWidth: 1440,
+  margin: '0 auto'
 };
 
 const imageStyle = {
-  minHeight: '100vh',
-  minWidth: '100vw'
+  height: '100vh',
+  minWidth: '100%'
 };
 
 const textContainerStyle = {
