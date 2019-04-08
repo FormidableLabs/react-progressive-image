@@ -41,7 +41,7 @@ If you use the UMD build you can find the library on `window.ReactProgressiveIma
 </ProgressiveImage>
 ```
 
-#### With loading argment
+#### With loading argument
 
 ```jsx
 <ProgressiveImage src="large-image.jpg" placeholder="tiny-image.jpg">
