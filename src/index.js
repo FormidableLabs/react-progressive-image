@@ -24,6 +24,7 @@ type State = {
 
 export default class ProgressiveImage extends React.Component<Props, State> {
   image: HTMLImageElement;
+  timeout: TimeoutID;
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -49,6 +50,7 @@ export default class ProgressiveImage extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
+    clearTimeout(this.timeout);
     if (this.image) {
       this.image.onload = null;
       this.image.onerror = null;
@@ -88,7 +90,7 @@ export default class ProgressiveImage extends React.Component<Props, State> {
   };
 
   setImageWithDelay = () => {
-    setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.setImage();
     }, this.props.delay);
   };
