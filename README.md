@@ -1,7 +1,6 @@
 # React Progressive Image
 
-[npm-badge]: https://img.shields.io/npm/v/react-context-emission.svg?style=flat-square
-[npm]: https://www.npmjs.com/package/react-context-emission
+[![Maintenance Status][maintenance-image]](#maintenance-status)
 
 [`react-progressive-image`](https://www.npmjs.com/package/react-progressive-image) React component for progressive image loading
 
@@ -123,3 +122,9 @@ You can do this by adding the fallback image inside of a `<noscript>` tag in the
 | placeholder | `string`                               | `true`   | the src of the placeholder image                |
 | src         | `string`                               | `true`   | the src of the main image                       |
 | srcSetData  | `{srcSet: "string", sizes: "string" }` | `false`  | srcset and sizes to be applied to the image     |
+
+## Maintenance Status
+
+ **Stable:** Formidable is not planning to develop any new features for this project. We are still responding to bug reports and security concerns. We are still welcoming PRs for this project, but PRs that include new features should be small and easy to integrate and should not include breaking changes.
+
+[maintenance-image]: https://img.shields.io/badge/maintenance-stable-blue.svg
